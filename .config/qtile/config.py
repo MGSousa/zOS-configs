@@ -425,11 +425,6 @@ def init_widgets_list():
                        fontsize = 16,
                        padding = 5.
                        ),
-              widget.BatteryIcon( 
-                       background = "000000",
-                       battery = 0,
-                       theme_path = os.path.expanduser("~/.config/qtile/icons"),
-                       ),
               widget.CPUGraph( 
                        graph_color = "cccccc",
                        margin_y = 0,
@@ -437,61 +432,59 @@ def init_widgets_list():
                        core = 'all',
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')}
                        ),
+              widget.TextBox(
+                       text = " | ",
+                       font = "Ubuntu Mono",
+                       background = colors[1],
+                       foreground = "#aaaaaa",
+                       padding = 0,
+                       fontsize = 16
+                       ),
               widget.Net( 
                        format = 'Net: {down} ↓↑ {up}', 
                        background = "#000000",
                        padding = 5,
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e iftop')},
+                       fontsize = 14
                        ),
               widget.TextBox(
-                       text = "&#5130;",
+                       text = " | ",
                        font = "Ubuntu Mono",
                        background = colors[1],
-                       foreground = colors[5],
+                       foreground = "#aaaaaa",
                        padding = 0,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = "",
-                       font = "Ubuntu Mono",
-                       background = colors[5],
-                       foreground = colors[6],
-                       padding = 0,
-                       fontsize = 37
+                       fontsize = 16
                        ),
               widget.Memory(
                        foreground = colors[1],
-                       background = colors[6],
+                       background = "#ff6c6b",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        fmt = 'RAM: {}',
+                       format = "{MemUsed: .0f}{mm} ({MemPercent: .0f}%)",
+                       measure_mem = "M",
+                       fontsize = 16,
                        padding = 5
                        ),
               widget.TextBox(
-                       text = "",
+                       text = " | ",
                        font = "Ubuntu Mono",
-                       background = colors[6],
-                       foreground = colors[7],
+                       background = colors[1],
+                       foreground = "#aaaaaa",
                        padding = 0,
-                       fontsize = 37
+                       fontsize = 16
                        ),
               widget.Volume(
                        foreground = colors[1],
                        background = colors[7],
                        fmt = 'Vol: {}',
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text = "",
-                       font = "Ubuntu Mono",
-                       background = colors[7],
-                       foreground = colors[9],
-                       padding = 0,
-                       fontsize = 37
+                       padding = 5,
+                       fontsize = 14
                        ),
               widget.Clock(
                        foreground = colors[1],
                        background = colors[9],
-                       format = "%A, %B %d - %H:%M "
+                       fontsize = 14,
+                       format = " %A, %B %d - %H:%M "
                        ),
               ]
     return widgets_list
@@ -575,7 +568,7 @@ reconfigure_screens = True
 auto_minimize = True
 
 @hook.subscribe.startup_once
-def start_once():
+def start_once():  
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
