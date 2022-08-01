@@ -473,6 +473,20 @@ def init_widgets_list():
                        padding = 0,
                        fontsize = 16
                        ),
+              widget.BatteryIcon(
+                       background = "#ffffff",
+                       battery = 0,
+                       scale = 1,
+                       theme_path = "~/.config/qtile/icons/battery_icons" 
+                       ),
+              widget.TextBox(
+                       text = " | ",
+                       font = "Ubuntu Mono",
+                       background = colors[1],
+                       foreground = "#aaaaaa",
+                       padding = 0,
+                       fontsize = 16
+                       ),
               widget.Volume(
                        foreground = colors[1],
                        background = colors[7],
