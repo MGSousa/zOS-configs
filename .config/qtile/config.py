@@ -257,9 +257,9 @@ keys = [
          ])
 ]
 
-groups = [Group("DEV", layout='monadtall'),
+groups = [Group("DEV", layout='ratiotile'),
           Group("RUST", layout='monadtall'),
-          Group("SYS", layout='monadtall'), 
+          Group("SYS", layout='max'), 
           Group("MISC", layout='floating')]
 
 # Allow MODKEY+[0 through 9] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
@@ -490,7 +490,7 @@ def init_widgets_list():
               widget.Volume(
                        foreground = colors[1],
                        background = colors[7],
-                       fmt = 'Vol: {}',
+                       fmt = '&#9738; {}',
                        padding = 5,
                        fontsize = 14
                        ),
@@ -498,7 +498,16 @@ def init_widgets_list():
                        foreground = colors[1],
                        background = colors[9],
                        fontsize = 14,
-                       format = " %A, %B %d - %H:%M "
+                       format = "%B %d - %H:%M "
+                       ),
+              widget.TextBox(
+                       text = "PrtScrn",
+                       font = "Ubuntu Mono",
+                       background = None,
+                       foreground = "#ff6c6b",
+                       padding = 5,
+                       fontsize = 14,
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e flameshot gui')}
                        ),
               ]
     return widgets_list
