@@ -160,46 +160,6 @@ keys = [
              desc='Toggle between split and unsplit sides of stack'
              ),
          
-         # Emacs programs launched using the key chord CTRL+e followed by 'key'
-         KeyChord([mod],"e", [
-             Key([], "e",
-                 lazy.spawn("emacsclient -c -a 'emacs'"),
-                 desc='Emacsclient Dashboard'
-                 ),
-             Key([], "a",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'"),
-                 desc='Emacsclient EMMS (music)'
-                 ),
-             Key([], "b",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(ibuffer)'"),
-                 desc='Emacsclient Ibuffer'
-                 ),
-             Key([], "d",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(dired nil)'"),
-                 desc='Emacsclient Dired'
-                 ),
-             Key([], "i",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(erc)'"),
-                 desc='Emacsclient ERC (IRC)'
-                 ),
-             Key([], "n",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(elfeed)'"),
-                 desc='Emacsclient Elfeed (RSS)'
-                 ),
-             Key([], "s",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(eshell)'"),
-                 desc='Emacsclient Eshell'
-                 ),
-             Key([], "v",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'"),
-                 desc='Emacsclient Vterm'
-                 ),
-             Key([], "w",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'"),
-                 desc='Emacsclient EWW Browser'
-                 )
-         ]),
-         
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
              Key([], "h",
@@ -406,10 +366,6 @@ def init_widgets_list():
                        background = colors[0],
                        padding = 0
                        ),
-              widget.Systray(
-                       background = colors[0],
-                       padding = 5
-                       ),
               widget.Sep(
                        linewidth = 0,
                        padding = 6,
@@ -508,6 +464,10 @@ def init_widgets_list():
                        padding = 5,
                        fontsize = 14,
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e flameshot gui')}
+                       ),
+              widget.Systray(
+                       background = colors[0],
+                       padding = 5
                        ),
               ]
     return widgets_list
