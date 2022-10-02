@@ -64,12 +64,12 @@ lvim.builtin.treesitter.ensure_installed = {
   "lua",
   "python",
   "typescript",
-  "tsx",
   "css",
   "rust",
   "java",
   "yaml",
-  "go"
+  "go",
+  "hcl"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -78,10 +78,12 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
--- lvim.lsp.installer.setup.ensure_installed = {
---     "sumeko_lua",
---     "jsonls",
--- }
+lvim.lsp.installer.setup.ensure_installed = {
+     "sumeko_lua",
+     "gopls",
+     "terraformls",
+     "rust_analyzer"
+}
 -- -- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
 -- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
