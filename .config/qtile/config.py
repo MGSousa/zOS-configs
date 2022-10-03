@@ -413,7 +413,7 @@ def init_widgets_list():
                        ),
               widget.Memory(
                        foreground = colors[1],
-                       background = "#ff6c6b",
+                       background = "##20B2AA",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        fmt = 'RAM: {}',
                        format = "{MemUsed: .0f}{mm} ({MemPercent: .0f}%)",
@@ -433,10 +433,19 @@ def init_widgets_list():
                        background = "#ffffff",
                        battery = 0,
                        scale = 1,
-                       theme_path = "~/.config/qtile/icons/battery_icons" 
+                       theme_path = "~/.config/qtile/icons/battery_icons"
+                       ),
+              widget.Battery(
+                       foreground = "#000000",
+                       format = '{char} {percent: 2.0%}',
+                       notify_below = 20,
+                       battery = 0,
+                       fontsize = 17,
+                       discharge_char = "",
+                       low_background = "#FF0000"
                        ),
               widget.TextBox(
-                       text = " | ",
+                       text = " ",
                        font = "Ubuntu Mono",
                        background = colors[1],
                        foreground = "#aaaaaa",
@@ -464,6 +473,14 @@ def init_widgets_list():
                        padding = 5,
                        fontsize = 14,
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('flameshot gui')}
+                       ),
+              widget.TextBox(
+                       text = " | ",
+                       font = "Ubuntu Mono",
+                       background = colors[1],
+                       foreground = "#aaaaaa",
+                       padding = 0,
+                       fontsize = 16
                        ),
               widget.Systray(
                        background = colors[0],
