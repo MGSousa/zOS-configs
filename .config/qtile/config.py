@@ -463,7 +463,7 @@ def init_widgets_list():
                        foreground = "#ff6c6b",
                        padding = 5,
                        fontsize = 14,
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e flameshot gui')}
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('flameshot gui')}
                        ),
               widget.Systray(
                        background = colors[0],
