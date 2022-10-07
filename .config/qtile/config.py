@@ -314,7 +314,7 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.GroupBox(
-                       ont = "Ubuntu Bold",
+                       font = "Ubuntu Bold",
                        fontsize = 9,
                        margin_y = 3,
                        margin_x = 0,
