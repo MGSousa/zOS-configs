@@ -36,10 +36,6 @@ keys = [
              lazy.spawn(myTerm),
              desc='Launches My Terminal'
              ),
-         Key([mod, "shift"], "Return",
-             lazy.spawn("dm-run"),
-             desc='Run Launcher'
-             ),
          Key([mod], "b",
              lazy.spawn(myBrowser),
              desc='Firefox'
@@ -174,10 +170,6 @@ keys = [
                  lazy.spawn("dm-setbg"),
                  desc='Set background'
                  ),
-             Key([], "c",
-                 lazy.spawn("dtos-colorscheme"),
-                 desc='Choose color scheme'
-                 ),
              Key([], "e",
                  lazy.spawn("dm-confedit"),
                  desc='Choose a config file to edit'
@@ -217,23 +209,22 @@ keys = [
          ])
 ]
 
+# workspace groups
 groups = [Group("DEV", layout='ratiotile'),
-          Group("RUST", layout='monadtall'),
-          Group("SYS", layout='max'), 
+          Group("WEB", layout='monadtall'),
+          Group("SYS", layout='max'),
+          Group("VPN", layout='floating'),
           Group("MISC", layout='floating')]
+for i, group in enumerate(groups):
+    keys.append(Key([mod], str(i+1), lazy.group[group.name].toscreen()))
+    keys.append(Key([mod, "shift"], str(i+1), lazy.window.togroup(group.name)))
 
-# Allow MODKEY+[0 through 9] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
-# MOD4 + index Number : Switch to Group[index]
-# MOD4 + shift + index Number : Send active window to another Group
-from libqtile.dgroups import simple_key_binder
-dgroups_key_binder = simple_key_binder("mod4")
-
+# layouts
 layout_theme = {"border_width": 1,
                 "margin": 8,
                 "border_focus": "eeeeee",
                 "border_normal": "1D2330"
                 }
-
 layouts = [
     #layout.MonadWide(**layout_theme),
     #layout.Bsp(**layout_theme),
@@ -271,6 +262,7 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
+# theme colors
 colors = [["#282c34", "#282c34"],
           ["#1c1f24", "#1c1f24"],
           ["#dfdfdf", "#dfdfdf"],
@@ -284,7 +276,7 @@ colors = [["#282c34", "#282c34"],
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
-##### DEFAULT WIDGET SETTINGS #####
+# widget settings
 widget_defaults = dict(
     font="Ubuntu Bold",
     fontsize = 10,
