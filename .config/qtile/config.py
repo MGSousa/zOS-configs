@@ -155,8 +155,23 @@ keys = [
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
              ),
+   
+         ### Media controls
+         Key([], "XF86AudioRaiseVolume",
+             lazy.widget["volume"].increase_vol(),
+             desc='Raise volume'
+             ),
+         Key([], "XF86AudioLowerVolume",
+             lazy.widget["volume"].decrease_vol(),
+             desc='Lower volume'
+             ),
+         Key([], "XF86AudioMute",
+             lazy.widget["volume"].mute(),
+             desc='Mute volume'
+             ),
          
-         # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
+         ### Dmenu scripts 
+         ### launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
              Key([], "h",
                  lazy.spawn("dm-hub"),
