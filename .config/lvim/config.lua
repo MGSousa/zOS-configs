@@ -152,14 +152,10 @@ lvim.lsp.installer.setup.ensure_installed = {
 --   },
 -- }
 
--- Additional Plugins
--- lvim.plugins = {
---     {"folke/tokyonight.nvim"},
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
+-- Markdown Preview
+lvim.plugins = {
+  { "iamcco/markdown-preview.nvim" }
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 vim.api.nvim_create_autocmd("BufEnter", {
