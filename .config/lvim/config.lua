@@ -152,9 +152,22 @@ lvim.lsp.installer.setup.ensure_installed = {
 --   },
 -- }
 
--- Markdown Preview
+-- Additional plugins
 lvim.plugins = {
-  { "iamcco/markdown-preview.nvim" }
+  -- Markdown Preview
+  { "iamcco/markdown-preview.nvim" },
+  
+  -- Todo Comments
+  {
+    "folke/todo-comments.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
