@@ -256,23 +256,23 @@ layouts = [
     layout.RatioTile(**layout_theme),
     layout.TreeTab(
          font = "Ubuntu",
-         fontsize = 10,
-         sections = ["FIRST", "SECOND", "THIRD", "FOURTH"],
-         section_fontsize = 10,
+         fontsize = 14,
+         sections = ["BASE"],
+         section_fontsize = 12,
          border_width = 1,
          bg_color = "1c1f24",
-         active_bg = "c678dd",
+         active_bg = "51afef",
          active_fg = "000000",
-         inactive_bg = "a9a1e1",
+         inactive_bg = "888888",
          inactive_fg = "1c1f24",
          padding_left = 0,
          padding_x = 0,
          padding_y = 5,
-         section_top = 10,
+         section_top = 20,
          section_bottom = 20,
-         level_shift = 8,
+         level_shift = 10,
          vspace = 3,
-         panel_width = 200
+         panel_width = 250
          ),
     layout.Floating(**layout_theme)
 ]
