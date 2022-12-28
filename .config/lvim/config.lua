@@ -184,6 +184,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Activate word-wrap globally
+vim.wo.wrap = true
+
 -- Some old keybindings from NERDTree
 vim.cmd([[
     map ,n :NvimTreeToggle<cr>
