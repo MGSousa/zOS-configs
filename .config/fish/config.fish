@@ -148,67 +148,18 @@ alias mute="pactl set-sink-mute @DEFAULT_SINK@ 1"
 alias unmute="pactl set-sink-mute @DEFAULT_SINK@ 0"
 alias test_audio="pactl play-sample @DEFAULT_SINK@"
 
-# KK aliases
-alias dev01='ssh msousa@192.168.233.75 -p 4655'
-
-alias cypress_dashboard='ssh msousa@192.168.233.155 -p 5571'
-alias gitlab='ssh msousa@192.168.233.116 -p 3453'
-
-alias jenkins='ssh msousa@192.168.233.165 -p 2755'
-
-alias plugins='ssh msousa@192.168.233.96 -p 2630'
-
-alias scl='ssh msousa@192.168.233.153 -p 4295'
-
-alias verdaccio_dev='ssh msousa@192.168.233.201 -p 7336'
-
-alias testc='jest --coverage'
-
-alias vim-go='vim -u ~/.vimrc.go'
-
-alias docker_registry='ssh msousa@192.168.233.14 -p 5827'
-
-alias dkron_server='ssh msousa@192.168.233.110 -p 4796'
-
-alias bf00='ssh msousa@192.168.233.40 -p 6314'
-
-alias bf01='ssh msousa@192.168.233.28 -p 3149'
-
-alias kkimportadores='ssh -p 4574 msousa@192.168.233.43'
-
-alias redis-logger="ssh -p 4590 msousa@192.168.233.143"
-
-alias mongoquery="ssh -p 4990 msousa@192.168.233.181"
-alias mongoreplica01="ssh -p 2304 msousa@192.168.233.180"
-alias mongoreplica02="ssh -p 4234 msousa@192.168.233.184"
-
-alias nomad_server="ssh -p 2933 msousa@192.168.233.182"
-
-alias kafka01="ssh -p 5511 msousa@192.168.233.185"
-alias debezium="ssh -p 5751 msousa@192.168.233.183"
-alias solrqa="ssh -p 3920 msousa@192.168.233.122"
-alias solrdev="ssh -p 7561 msousa@192.168.233.205"
-alias sclqa="ssh -p 2453 msousa@192.168.233.159"
-alias solr01="ssh -p 3995 msousa@192.168.233.22"
-alias solr02="ssh -p 5084 msousa@192.168.233.38"
-alias solr03="ssh -p 5241 msousa@192.168.233.39"
-alias nexus="ssh -p 5621 msousa@192.168.233.124"
-alias tests="ssh -p 4378 msousa@192.168.233.125"
-
-alias sonar="ssh msousa@192.168.233.66 -p 4093"
-
 alias hadolint="sudo docker run --rm -i hadolint/hadolint <"
 
-alias enable_touch="xinput set-prop (xinput | grep 'Elan Touchpad' | awk -F' ' '{print \$5}' | cut -d'=' -f2-) \"Device Enabled\" 1"
-alias disable_touch="xinput set-prop (xinput | grep 'Elan Touchpad' | awk -F' ' '{print \$5}' | cut -d'=' -f2-) \"Device Enabled\" 0"
+#alias enable_touch="xinput set-prop (xinput | grep 'Elan Touchpad' | awk -F' ' '{print \$5}' | cut -d'=' -f2-) \"Device Enabled\" 1"
+#alias disable_touch="xinput set-prop (xinput | grep 'Elan Touchpad' | awk -F' ' '{print \$5}' | cut -d'=' -f2-) \"Device Enabled\" 0"
 
 # automations
-set MODS "/home/sousa/Workspace/webcam-mods/Makefile"
-alias t_sound="sudo /home/sousa/.local/share/virtualenvs/webcam-mods-fnXb_E5h/bin/python ~/Workspace/webcam-mods/src/uses/keys-detection.py"
+set MODS "$HOME/Workspace/webcam-mods/Makefile"
+alias t_sound="sudo $HOME/.local/share/virtualenvs/webcam-mods-fnXb_E5h/bin/python ~/Workspace/webcam-mods/src/uses/keys-detection.py"
 alias virtual_cam="make -f $MODS setup-virtual-cam"
-alias bg_removal="cd /home/sousa/Workspace/webcam-mods/; PYTHONPATH=~/Workspace/webcam-mods/src/ pipenv run python src/uses/bg_removal.py"
+alias bg_removal="cd $HOME/Workspace/webcam-mods/; PYTHONPATH=~/Workspace/webcam-mods/src/ pipenv run python src/uses/bg_removal.py"
 
-## Run paleofetch if session is interactive
+## Run neofetch if session is interactive
 if status --is-interactive
    neofetch
 end
@@ -222,10 +173,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Go vars
-export GOPRIVATE="git.kuantokusta.pt"
-export GOINSECURE="git.kuantokusta.pt"
+#export GOPRIVATE="git.xxxx.xx"
+#export GOINSECURE="git.xxxxx.xx"
 
 export XDG_RUNTIME_DIR="/run/user/1000"
 
-export ANDROID_NDK_HOME="/home/sousa/Android/ndk-bundle"
+export ANDROID_NDK_HOME="$HOME/Android/ndk-bundle"
 
