@@ -5,7 +5,7 @@ import subprocess
 import distro
 from libqtile import qtile
 from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
-from libqtile.command import lazy
+# from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
@@ -18,12 +18,10 @@ def reload(module):
         importlib.reload(sys.modules[module])
 
 
-mod = "mod4"  # Sets mod key to SUPER/WINDOWS
+mod = "mod4"  # Sets mod key to SUPER or WINDOWS
 myTerm = "alacritty"
 myBrowser = "firefox"
 
-"""
-NOT USED AT ALL
 if "arch" in distro.like():
     myDistro = "Arch"
     updateCmd = "-e sudo pacman -Syu"
@@ -36,7 +34,6 @@ elif "ubuntu" in distro.like():
 else:
     myDistro = "Fedora"
     updateCmd = "-e sudo yum update"
-"""
 
 keys = [
     ### The essentials
@@ -46,7 +43,7 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill active window"),
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    ### Switch focus to a specific monitor (out of three)
+    ### Switch focus to specific monitor (out of three)
     Key([mod], "w", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
     Key([mod], "e", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
     Key([mod], "r", lazy.to_screen(2), desc="Keyboard focus to monitor 3"),
@@ -156,22 +153,21 @@ keys = [
         desc="Decrease screen backlight",
     ),
     ### Dmenu scripts && other misc tools
-    ### launched using the key-chord SUPER+p followed by 'key'
+    ### launched using the key chord SUPER+p followed by 'key'
     KeyChord(
         [mod],
         "p",
         [
             Key([], "h", lazy.spawn("dm-hub"), desc="List all dmscripts"),
-            Key(
-                [], "e", lazy.spawn("dm-confedit"), desc="Choose a config file to edit"
-            ),
             Key([], "i", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
             Key([], "m", lazy.spawn("dm-man"), desc="View manpages"),
             Key([], "n", lazy.spawn("dm-note"), desc="Store and copy notes"),
             Key([], "f", lazy.spawn("dmenu_run"), desc="Search for anything"),
             Key([], "q", lazy.spawn("dm-logout"), desc="Logout menu"),
             Key([], "s", lazy.spawn("dm-secret"), desc="Scrypt credentials"),
+            Key([], "e", lazy.spawn("dm-inject-secret"), desc="Change Scrypt credentials"),
             Key([], "x", lazy.spawn("dm-sink-switcher"), desc="Switch sink audio device"),
+            Key([], "t", lazy.spawn("totp"), desc="Set OTP to Clipboard"),
         ],
     ),
 ]
@@ -191,7 +187,7 @@ for i, group in enumerate(groups):
 # layouts
 layout_theme = {
     "border_width": 2,
-    "margin": 10,
+    "margin": 5,
     "border_focus": "4682B4",
     "border_normal": "1D2330",
     "width": 100,
@@ -260,7 +256,7 @@ def init_widgets_list():
             filename="~/.config/qtile/logo.png",
             scale="False",
             background=colors[0],
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(myTerm)},
+            mouse_callbacks={"Button1": lambda: qtile.spawn(myTerm)},
         ),
         widget.Sep(linewidth=0, padding=6, foreground=colors[2], background=colors[0]),
         widget.GroupBox(
@@ -331,7 +327,7 @@ def init_widgets_list():
             background=colors[0],
             format="CPU: {load_percent}%",
             fontsize=16,
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(myTerm + " -e htop")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn(myTerm + " -e htop")},
         ),
         widget.TextBox(
             text=" | ",
@@ -341,26 +337,26 @@ def init_widgets_list():
             padding=0,
             fontsize=16,
         ),
-        widget.Net(
-            format = 'Net: {down} ↓↑ {up}',
-            background = colors[0],
-            padding = 0,
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e iftop')},
-            fontsize = 16
-        ),
-        widget.TextBox(
-            text=" | ",
-            font="Ubuntu Mono",
-            background=colors[0],
-            foreground="#aaaaaa",
-            padding=0,
-            fontsize=16,
-        ),
+        # widget.Net(
+        #          format = 'Net: {down} ↓↑ {up}',
+        #          background = colors[0],
+        #          padding = 0,
+        #          mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e iftop')},
+        #          fontsize = 16
+        #          ),
+        # widget.TextBox(
+        #     text=" | ",
+        #     font="Ubuntu Mono",
+        #     background=colors[0],
+        #     foreground="#aaaaaa",
+        #     padding=0,
+        #     fontsize=16,
+        # ),
         widget.Memory(
             foreground="#20B2AA",
             background=colors[0],
             # background = "#20B2AA",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(myTerm + " -e htop")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn(myTerm + " -e htop")},
             fmt="RAM: {}",
             format="{MemUsed: .0f}{mm} ({MemPercent: .0f}%)",
             measure_mem="M",
@@ -405,6 +401,7 @@ def init_widgets_list():
             fontsize=17,
             discharge_char="",
             charge_char="+",
+            update_interval=30
         ),
         widget.TextBox(
             text=" ",
@@ -442,7 +439,7 @@ def init_widgets_list():
             foreground="#ff6c6b",
             padding=5,
             fontsize=14,
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("flameshot gui")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn("flameshot gui")},
         ),
         widget.TextBox(
             text=" | ",
@@ -537,22 +534,19 @@ cursor_warp = False
 
 floating_layout = layout.Floating(
     float_rules=[
-        # Run the utility of `xprop` to see an X client's wm class and name.
+        # Run the utility of `xprop` to see the wm class and name of an X client.
         # default_float_rules include: utility, notification, toolbar, splash, dialog,
-        # file_progress, confirm, download, and error.
+        # file_progress, confirm, download and error.
         *layout.Floating.default_float_rules,
         Match(title="Confirmation"),  # tastyworks exit box
-        Match(title="Qalculate!"),  # qalculate-gtk
-        Match(wm_class="kdenlive"),  # kdenlive
-        Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
     ]
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
 
-# If things like Steam games 
-# want to auto-minimize themselves when losing focus
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
 auto_minimize = True
 
 
@@ -564,4 +558,8 @@ def start_once():
 
 @hook.subscribe.screens_reconfigured
 def on_screens_reconfigured():
-    qtile.cmd_reload_config()
+    qtile.reload_config()
+
+@hook.subscribe.screen_change
+def screen_change(event):
+    qtile.reconfigure_screens()
